@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock title %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    (function() {
+
+      const rootStyles = getComputedStyle(document.documentElement);
+      const sidebarCollapsedWidth = parseInt(rootStyles.getPropertyValue('--sidebar-width-collapsed')); // 60
+
+      const collapsedKey = 'sidebarCollapsed';
+      const widthKey = 'sidebarWidth';
+      const collapsedWidth = sidebarCollapsedWidth;  // ширина свернутой панели (пикселей)
+      
+      // Читаем сохраненные значения из localStorage
+      const isCollapsedSaved = localStorage.getItem(collapsedKey) === 'true';
+      const savedWidth = parseInt(localStorage.getItem(widthKey));
+      
+      // Если сохранена ширина и она валидна, применяем ее, иначе используем значение по умолчанию
+      if (!isNaN(savedWidth) && savedWidth) {
+        // Устанавливаем CSS-переменные для ширины панели и отступа основного контента
+        document.documentElement.style.setProperty('--sidebar-width', savedWidth + 'px');
+        document.documentElement.style.setProperty('--sidebar-margin', (savedWidth + 5) + 'px');
+      }
+      // Если панель была свернута в прошлый раз – устанавливаем соответствующие переменные
+      if (isCollapsedSaved) {
+        document.documentElement.style.setProperty('--sidebar-width', collapsedWidth + 'px');
+        document.documentElement.style.setProperty('--sidebar-margin', (collapsedWidth + 5) + 'px');
+        // Добавляем класс для свернутого состояния до отрисовки содержимого
+        document.documentElement.classList.add('sidebar-collapsed');
+      }
+    })();
+  </script>
+  <script src="{{ url_for('static', filename='js/resizer.js') }}" defer></script>
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="logo"><span class="icon">📘</span><span class="label">DocSpace</span></div>
+    <div class="button-panel">
+      <a href="/" class="nav-btn">
+        <span class="icon">🏠</span>
+        <span class="label">Домой</span>
+      </a>
+      <a href="/search" class="nav-btn">
+        <span class="icon">🔍</span>
+        <span class="label">Поиск</span>
+      </a>
+      <a href="/history" class="nav-btn">
+        <span class="icon">🕘</span>
+        <span class="label">История</span>
+      </a>
+    </div>
+    <div class="sidebar-nav">
+     {% include "sidebar.html" %}
+    </div>
+  </aside>
+  <div id="resizer">
+    <button id="toggle-sidebar" title="Свернуть панель">⏴</button>
+  </div>
+  <main id="main">
+    <div class="topbar">
+      <div class="path">{% include "breadcrumbs.html" %}</div>
+      <div class="actions">
+        <!--    
+        <button>🔗 Ссылка</button>
+        <button>⭐ В избранное</button>
+        <button>⋯</button> 
+        -->
+      </div>
+    </div>
+    <div class="content">
+      <h1>{% block page_name %}{% endblock page_name %}</h1>
+      <p>{% block content %}{% endblock content %}</p>
+      <!-- Dynamic content is here -->
+    </div>
+  </main>
+
+  <footer>
+    <p>DocUI v2.1 • <a href="#">GitHub</a></p>
+  </footer>
+
+</body>
+</html>

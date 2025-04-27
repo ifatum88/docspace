@@ -1,0 +1,10 @@
+{% block path %}
+    {% for crumb in breadcrumbs %}
+        {% if not loop.first %}/ {% endif %}
+        {% if crumb.url %}
+            <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+        {% else %}
+            <span>{{ crumb.name }}</span>
+        {% endif %}
+    {% endfor %}
+{% endblock path %}

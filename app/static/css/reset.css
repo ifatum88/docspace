@@ -1,0 +1,96 @@
+/* reset.css */
+
+/* 1. Устанавливаем более интуитивную модель box-sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* 2. Удаляем стандартные отступы */
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+  }
+  
+  /* 3. Нормализуем типографику */
+  html {
+    font-size: 100%;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  /* 4. Удаляем стили списков и ссылок */
+  ol, ul {
+    list-style: none;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* 5. Убираем системные стили для кнопок и полей ввода */
+  button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* 6. Устанавливаем стандартные стили для заголовков и параграфов */
+  h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+  
+  /* 7. Сбрасываем стили таблиц */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  /* 8. Удаляем стили для изображений и мультимедиа */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 9. Убираем стили для цитат */
+  blockquote, q {
+    quotes: none;
+  }
+  
+  blockquote::before, blockquote::after,
+  q::before, q::after {
+    content: '';
+    content: none;
+  }
+  
+  /* 10. Удаляем стили для маркеров списков */
+  ::marker {
+    content: '';
+  }
+  
+  /* 11. Удаляем стили для placeholder */
+  ::placeholder {
+    color: inherit;
+    opacity: 1;
+  }
+  
+  /* 12. Устанавливаем стандартные стили для тела документа */
+  body {
+    line-height: 1.5;
+    background-color: #fff;
+    color: #000;
+  }
