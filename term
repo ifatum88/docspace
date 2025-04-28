@@ -15,4 +15,4 @@ python3 -m pip install humanize
 
 python3 -m venv /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs
 source /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs/bin/activate
-python3 -m pip install humanize babel
+python3 -m pip install jsonschema
