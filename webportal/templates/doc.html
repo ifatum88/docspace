@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.name }}{% endblock title %}
+{% block page_name %}{{ page.name }}{% endblock page_name %}
+
+{% block content %}
+    {% if doc.type %}
+        <div class="page-meta">
+            <span class="tag">{{ doc.type }}</span>
+            <div class="page-meta-right">
+            <span class="info">Создан: {{ doc.created|humantime }}</span>
+            <span class="info">Обновлен: {{ doc.updated|humantime }}</span>
+            <span class="info">Автор: {{ doc.author }}</span>
+            <span class="buttons">
+                {% if is_generated %}
+                    <a href="{{ request.path }}">[GENERATE]</a>
+                {% else %}
+                <a href="?g=raw">[RAW]</a>
+                {% endif %}
+            </span>
+            </div>
+        </div>
+        <div class="page-content">
+            {{ content|safe }}
+        </div>
+    {% endif %}
+{% endblock content %}
