@@ -14,9 +14,8 @@ def doc_content():
     doc = json.loads(request.form.get('doc'))
     layout = request.form.get('layout')
     show = request.form.get('show')
-    content = doc['content'] if show == "raw" else Content(doc['content'], doc['type']).content
-
-    print (f"Генерирую документ {doc['_id']}, Layout={layout}, Show={show}", end="\n")
+    doc_type = "raw" if show == "raw" else doc['type']
+    content = Content(doc['content'], doc_type).content
     
     return render_template("doc_block.html", 
                            doc=doc,

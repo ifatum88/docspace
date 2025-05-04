@@ -6,6 +6,7 @@ class ContentType(Enum):
     MARKDOWN = "markdown"
     PLAINTEXT = "plain-text"
     HTML = "html"
+    RAW = "raw"
 
 class Content:
 
@@ -26,7 +27,8 @@ class Content:
         generators = {
             ContentType.MARKDOWN: self.__generate_markdown,
             ContentType.HTML: self.__generate_html,
-            ContentType.PLAINTEXT: self.__generate_plaintext
+            ContentType.PLAINTEXT: self.__generate_plaintext,
+            ContentType.RAW: self.__generate_raw
         }
 
         if not self.raw_content or not self.content_type:
@@ -40,7 +42,7 @@ class Content:
         try:
             return ContentType(_type)
         except:
-            return ContentType.HTML
+            return ContentType.RAW
 
     def __generate_markdown(self):
         return render_template (
@@ -59,6 +61,13 @@ class Content:
     def __generate_plaintext(self):
         return render_template (
             'partials/plaintext.html',
+            content=self.raw_content,
+            **self.kwargs
+        )
+    
+    def __generate_raw(self):
+        return render_template (
+            'partials/raw.html',
             content=self.raw_content,
             **self.kwargs
         )
