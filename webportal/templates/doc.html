@@ -1,27 +1,61 @@
 {% extends "base.html" %}
 
+{% set page_author = page.author %}
+{% set page_updater = page.updater %}
+{% set page_created = page.created %}
+{% set page_updated = page.updated %}
+
 {% block title %}{{ page.name }}{% endblock title %}
 {% block page_name %}{{ page.name }}{% endblock page_name %}
 
-{% block content %}
-    {% if doc.type %}
-        <div class="page-meta">
-            <span class="tag">{{ doc.type }}</span>
-            <div class="page-meta-right">
-            <span class="info">Создан: {{ doc.created|humantime }}</span>
-            <span class="info">Обновлен: {{ doc.updated|humantime }}</span>
-            <span class="info">Автор: {{ doc.author }}</span>
-            <span class="buttons">
-                {% if is_generated %}
-                    <a href="{{ request.path }}">[GENERATE]</a>
-                {% else %}
-                <a href="?g=raw">[RAW]</a>
-                {% endif %}
-            </span>
-            </div>
-        </div>
-        <div class="page-content">
-            {{ content|safe }}
+{% block page_info %}
+    {% if docs %}
+        <div class="page-actions">
+            <span class="meta-author">Автор: {{ page_author }}</span>
+            <span class="meta-date">Создано: {{ page_created|humantime }}</span>
+            {% if layout == "show" %}
+                <a href="{{ request.path }}" class="icon-button" title="Скрыть разметку">
+                    <span class="material-icons icon-active">article</span>
+                </a>
+            {% else %}
+                <a href="?layout=show" class="icon-button" title="Показать разметку">
+                    <span class="material-icons icon-unactive">article</span>
+                </a>
+            {% endif %}
         </div>
     {% endif %}
+{% endblock page_info %}
+
+{% block page_meta %}
+    {% if layout == "show" %}
+        <div class="layout {% if layout == 'show' %}doc-block-border{% endif %}"> 
+            <span class="doc-label">Страница</span>
+            <div class="doc-meta">
+                <div class="doc-meta-left">
+                    <span class="meta-field"><strong>ID:</strong> <a href="{{ url_for_page(page, use_id=True) }}" class="accent-link">{{ page._id }}</a></span>
+                    <span class="meta-field"><strong>Создал:</strong> {{ page.author }} {{ page.created|datetime }}</span>
+                    <span class="meta-field"><strong>Изменил:</strong> {{ page.updater }} {{ page.updated|datetime }}</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock page_meta %}
+
+{% block content %}
+    {% for doc in docs %}
+        <div hx-post="{{ url_for('doc_content.generate_content') }}" 
+                hx-vals='{{ {
+                    "doc": doc.to_dict(),
+                    "layout": layout
+                    } | tojson }}'
+                hx-trigger="load"  
+                hx-target="this" 
+                hx-swap="outerHTML">
+                <div class="loader delayed-loader">
+                    <span class="spinner"></span>
+                    Генерация контента ...
+                </div>
+        </div>
+    {% endfor %}
+    
 {% endblock content %}

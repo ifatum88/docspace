@@ -11,9 +11,11 @@ class Content:
 
     __content = "No content"
 
-    def __init__(self, content:str, content_type:object):
+    def __init__(self, content:str, content_type:object, *args, **kwargs):
         self.raw_content = content
         self.content_type = self.__convert_to_contenttype(content_type)
+        self.args = args
+        self.kwargs = kwargs
 
     @property
     def content(self):
@@ -43,12 +45,24 @@ class Content:
     def __generate_markdown(self):
         return render_template (
             'partials/markdown.html',
-            content=md.markdown(self.raw_content, extensions=['fenced_code', 'tables'])
+            content=md.markdown(self.raw_content, extensions=['fenced_code', 'tables']),
+            **self.kwargs
         )
     
     def __generate_html(self):
-        return self.raw_content  # Просто отдаём html как есть
-
+        return render_template (
+            'partials/html.html',
+            content=self.raw_content,
+            **self.kwargs
+        )
+    
     def __generate_plaintext(self):
+        return render_template (
+            'partials/plaintext.html',
+            content=self.raw_content,
+            **self.kwargs
+        )
+
+
         return f"<pre>{self.raw_content}</pre>"  # Примитивный рендер текста
         

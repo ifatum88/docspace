@@ -6,7 +6,9 @@
   <title>{% block title %}{% endblock title %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='lib/marked/markdown.css') }}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   <script>
     (function() {
 
@@ -74,9 +76,12 @@
       </div>
     </div>
     <div class="content">
-      <h1>{% block page_name %}{% endblock page_name %}</h1>
-      <p>{% block content %}{% endblock content %}</p>
-      <!-- Dynamic content is here -->
+      <div class="page-header-row">
+        <h1 class="page-title">{% block page_name %}{% endblock page_name %}</h1>
+        {% block page_info %}{% endblock page_info %}
+      </div>
+      {% block page_meta %}{% endblock page_meta %}
+      {% block content %}{% endblock content %}
     </div>
   </main>
 

@@ -473,3 +473,202 @@ html.sidebar-collapsed #resizer #toggle-sidebar {
   align-items: center;
   justify-content: center;
 }
+
+.page-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* ключевая правка: было flex-end */
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  flex-grow: 1;
+  margin-bottom: 0 !important;
+  line-height: 1;
+}
+
+.page-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: var(--subtext);
+  font-size: 0.9rem;
+}
+
+.page-actions > span {
+  padding-bottom: 0.2em;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.2rem;
+  font-size: 1.1rem;
+}
+
+.material-icons.icon-active {
+  /* font-size: 1.3rem; */
+  color: var(--accent);
+}
+
+.material-icons.icon-unactive {
+  /* font-size: 1.3rem; */
+  color: var(--subtext);
+}
+
+.page-details {
+  background-color: #f5f5f5;
+  padding: 0.5rem 1rem;
+  /* margin-bottom: 1rem;  */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-details.hidden {
+  display: none;
+}
+
+.page-details.visible {
+  display: flex; /* возвращаем flex при показе */
+}
+
+.page-details div {
+  margin-bottom: 0.3rem;
+  color: var(--subtext);
+  font-size: 0.9rem;
+}
+
+.page-details-text {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--subtext);
+  padding: 1rem;
+  font-style: italic;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.doc-separator {
+  border: none;
+  border-top: 2px dashed var(--accent);
+  margin: 1rem 0 0.2rem 0;
+}
+
+.doc-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0;
+  flex-wrap: wrap;
+}
+
+.doc-meta-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--subtext);
+}
+
+.meta-field {
+  font-weight: 400;
+}
+
+.doc-meta-right {
+  margin-left: auto;
+}
+
+.doc-meta-right .icon-button {
+  background: none;
+  border: none;
+  color: var(--accent); /* ваш фиолетовый */
+  cursor: pointer;
+  padding: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.doc-block-border {
+  border: 1px dashed var(--accent); /* светло-серая пунктирная линия */
+  border-radius: var(--radius);     /* скругление краёв */
+  padding: 1.5rem 1rem 1rem 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.doc-label {
+  position: absolute;
+  top: -0.8rem;              /* приподнять над блоком */
+  margin-bottom: -0.75rem;    /* убрать лишний отступ снизу */
+  z-index: 1;                 /* убедиться, что она сверху */
+  display: inline-block;
+  background-color: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(126, 91, 239, 0.3);
+  user-select: none;
+}
+
+.layout {
+  position: relative;
+}
+
+.doc-label:hover {
+  background-color: var(--accent);
+}
+
+.accent-link {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.accent-link:hover {
+  color: #6d4de0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes showLoader {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.delayed-loader {
+  visibility: hidden;
+  opacity: 0;
+  animation: showLoader 0s 1s forwards;
+}

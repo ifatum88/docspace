@@ -1,0 +1,1 @@
+from .doc_content import doc_content_bp

@@ -1,0 +1,49 @@
+<div class="layout {% if layout == 'show' %}doc-block-border{% endif %}" id="layout-{{ doc._id }}"> 
+    {% if layout == "show" %}
+        <span class="doc-label">Документ: {{ doc.type }}</span>
+        <div class="doc-meta">
+            <div class="doc-meta-left">
+                <span class="meta-field"><strong>ID:</strong> {{ doc._id }}</span>
+                <span class="meta-field"><strong>Создал:</strong> {{ doc.author }} {{ doc.created|datetime }}</span>
+                <span class="meta-field"><strong>Изменил:</strong> {{ doc.updater }} {{ doc.updated|datetime }}</span>
+            </div>
+            <div class="doc-meta-right">
+                {% if show == "raw" %}
+                    <!-- Кнопка: перейти в сгенерированный -->
+                    <button class="icon-button"
+                            title="Показать исходный контент"
+                            hx-post="{{ url_for('doc_content.generate_content') }}"
+                            hx-include="closest .layout"
+                            hx-vals='{{ {
+                                "doc": doc,
+                                "layout": layout
+                                } | tojson }}'
+                            hx-target="#layout-{{ doc._id }}"
+                            hx-swap="outerHTML">
+                        <span class="material-icons icon-active">code</span>
+                    </button>
+                {% else %}
+                    <!-- Кнопка: перейти в raw -->
+                    <button class="icon-button"
+                            title="Показать исходный контент"
+                            hx-post="{{ url_for('doc_content.generate_content') }}"
+                            hx-include="closest .layout"
+                            hx-vals='{{ {
+                                "doc": doc,
+                                "layout": layout,
+                                "show": "raw",
+                                } | tojson }}'
+                            hx-target="#layout-{{ doc._id }}"
+                            hx-swap="outerHTML">
+                        <span class="material-icons icon-unactive">code</span>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="doc-block">
+        <!-- 📦 Контентный блок -->
+        {{ content|safe }}
+    </div>
+</div>

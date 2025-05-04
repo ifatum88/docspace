@@ -8,8 +8,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'C4 diagram',
@@ -19,8 +19,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'API Contacts',
@@ -30,8 +30,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'Sequence diagram',
@@ -41,8 +41,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'PDM',
@@ -52,8 +52,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'Документация',
@@ -63,8 +63,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'Установка',
@@ -74,8 +74,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'Конфигурации',
@@ -85,8 +85,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
     {
         name: 'Use-cases',
@@ -96,8 +96,8 @@
         doc: "",
         author: "Дима Гич",
         updater: "Дима Гич",
-        created: "2025-04-25 15:54:29.920719",
-        updated: "2025-04-25 15:54:29.920719"
+        created: new Date(),
+        updated: new Date()
     },
 ]
 
@@ -125,3 +125,71 @@ db.pages.updateOne(
 
   // Docs
   
+  [
+    {
+        type: "markdown",
+        content: "# Markdown syntax guide\n\n## Headers\n\n# This is a Heading h1\n## This is a Heading h2\n###### This is a Heading h6\n\n## Emphasis\n\n*This text will be italic*  \n_This will also be italic_\n\n**This text will be bold**  \n__This will also be bold__\n\n_You **can** combine them_\n\n## Lists\n\n### Unordered\n\n* Item 1\n* Item 2\n* Item 2a\n* Item 2b\n    * Item 3a\n    * Item 3b\n\n### Ordered\n\n1. Item 1\n2. Item 2\n3. Item 3\n    1. Item 3a\n    2. Item 3b\n\n## Images\n\n![This is an alt text.](https://markdownlivepreview.com/image/sample.webp \"This is a sample image.\")\n\n## Links\n\nYou may be using [Markdown Live Preview](https://markdownlivepreview.com/).\n\n## Blockquotes\n\n> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.\n>\n>> Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.\n\n## Tables\n\n| Left columns  | Right columns |\n| ------------- |:-------------:|\n| left foo      | right foo     |\n| left bar      | right bar     |\n| left baz      | right baz     |\n\n## Blocks of code\n\n```\nlet message = 'Hello world';\nalert(message);\n```\n\n## Inline code\n\nThis web site is using `markedjs/marked`.\n",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "markdown",
+        content: "# Markdown syntax guide\n\n## Headers\n\n# This is a Heading h1\n## This is a Heading h2\n###### This is a Heading h6\n\n## Emphasis\n\n*This text will be italic*  \n_This will also be italic_\n\n**This text will be bold**  \n__This will also be bold__\n\n_You **can** combine them_\n\n## Lists\n\n### Unordered\n\n* Item 1\n* Item 2\n* Item 2a\n* Item 2b\n    * Item 3a\n    * Item 3b\n\n### Ordered\n\n1. Item 1\n2. Item 2\n3. Item 3\n    1. Item 3a\n    2. Item 3b\n\n## Images\n\n![This is an alt text.](https://markdownlivepreview.com/image/sample.webp \"This is a sample image.\")\n\n## Links\n\nYou may be using [Markdown Live Preview](https://markdownlivepreview.com/).\n\n## Blockquotes\n\n> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.\n>\n>> Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.\n\n## Tables\n\n| Left columns  | Right columns |\n| ------------- |:-------------:|\n| left foo      | right foo     |\n| left bar      | right bar     |\n| left baz      | right baz     |\n\n## Blocks of code\n\n```\nlet message = 'Hello world';\nalert(message);\n```\n\n## Inline code\n\nThis web site is using `markedjs/marked`.\n",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "markdown",
+        content: "# Document 1\nOnly text",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "markdown",
+        content: "# Document 2\nText and image\n![This is an alt text.](/image/sample.webp \"This is a sample image.\")",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "markdown",
+        content: "# Document 3\n## Tables\n\n| Left columns  | Right columns |\n| ------------- |:-------------:|\n| left foo      | right foo     |\n| left bar      | right bar     |\n| left baz      | right baz     |",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+
+
+      {
+        type: "markdown",
+        content: "# Document 1\n## Tables\n\n| Left columns  | Right columns |\n| ------------- |:-------------:|\n| left foo      | right foo     |\n| left bar      | right bar     |\n| left baz      | right baz     |",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "html",
+        content: "<h1>Заголовок блока с HTML<h1><p>Текст внутри абзаца</p>",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+      {
+        type: "plain-text",
+        content: "Просто текст",
+        author: "Дима Гич",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Дима Гич"
+      },
+  ]

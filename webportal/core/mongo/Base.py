@@ -1,6 +1,8 @@
 from pymongo.database import Database
 from pymongo.cursor import Cursor
 
+from bson import ObjectId
+
 from .Const import BSON_TO_JSON_TYPE, JSON_VALIDATION_RULES
 from .Fields import ModelFieldTypes, ModelField, ModelFieldSources
 from .Transformer import ModelFieldValueTransformer
@@ -204,8 +206,18 @@ class ModelMetaClass(metaclass=ModelFabric):
     def __str__(self):
         return f"Object=<{self.__class__.__name__}. Attrs=[{self.__attrs_list()}]>"
     
-    def to_dict(self):
-        return self.__dict__.copy()
+    def to_dict(self) -> dict:
+
+        out = dict()
+
+        for key, val in self.__dict__.items():
+            if isinstance(val, ObjectId):
+                out[key] = val.__str__()
+            else:  
+                out[key] = val
+
+        return out
+
     
 class ModelBase(metaclass=ModelFabric):
 
@@ -246,13 +258,15 @@ class ModelBase(metaclass=ModelFabric):
     def __transform_mongo_data_to_model(self, data:Cursor) -> QuerySet:
 
         documents = list(data)
-        MetaModelObject = type(self._model, (ModelMetaClass, ), {})
-        ret = QuerySet([])
+        ret = QuerySet(self._model, [])
 
         # Возвращаем пустой QuerySet если запрос не вернул данных
         if not documents:
             return ret
-        
+
+        # Определяем модель по метаклассу
+        MetaModelObject = type(self._model, (ModelMetaClass, ), {})
+
         # Преобразуем словари в динамический объект, описанный внутри класса ModelMetaClass
         # Имя класса берется из self._model
         for doc in documents:
@@ -276,5 +290,6 @@ class ModelBase(metaclass=ModelFabric):
             return self.__transform_mongo_data_to_model([data]).first()
 
     def find_many(self, query:dict):
+
         data = self._db[self._collection].find(query)
         return self.__transform_mongo_data_to_model(data)
