@@ -1,16 +1,15 @@
 ## 04.05.2025
 
 1. Добавлен вывод на 1 страниц нескольких документов и отображение метаданных по странице и по каждому документу на странице
-![alt text](image-1.png)
+![alt text](docs/img/image-1.png)
 2. Добавлен функционал работы с layout
-![alt text](image-2.png)
+![alt text](docs/img/image-2.png)
 3. Добавлено отображение документов с типом HTML 
-![alt text](image-3.png)
-![alt text](image-4.png)
+![alt text](docs/img/image-3.png)
+![alt text](docs/img/image-4.png)
 4. Добавлено отображение документов с типом plain-text
-![alt text](image-5.png)
-![alt text](image-6.png)
-
+![alt text](docs/img/image-5.png)
+![alt text](docs/img/image-6.png)
 5. Добавлена асинхронная загрузка блоков документов
 
 ## 02.05.2025
@@ -28,4 +27,3 @@
 10. Все роуты из run.py выведены в папку routes и подключаются через register_blueprint
 11. Инициализация всех основных атрибутов и функций app вынесена из run.py во внутрь build_app()
 
-![alt text](image.png)
