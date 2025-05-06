@@ -1,0 +1,1 @@
+from .content_generate import content_generate_bp

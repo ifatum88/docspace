@@ -42,8 +42,9 @@
 {% endblock page_meta %}
 
 {% block content %}
+
     {% for doc in docs %}
-        <div hx-post="{{ url_for('doc_content.generate_content') }}" 
+        <div hx-post="{{ url_for('doc_layout.doc_load') }}" 
                 hx-vals='{{ {
                     "doc": doc.to_dict(),
                     "layout": layout
@@ -52,7 +53,7 @@
                 hx-target="this" 
                 hx-swap="outerHTML">
                 <div class="loader delayed-loader">
-                    <span class="spinner"></span>
+                    <span class="doc-loader"></span>
                     Загружаю документ ...
                 </div>
         </div>

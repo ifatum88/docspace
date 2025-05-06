@@ -12,7 +12,7 @@
                     <!-- Кнопка: перейти в сгенерированный -->
                     <button class="icon-button"
                             title="Показать исходный контент"
-                            hx-post="{{ url_for('doc_content.generate_content') }}"
+                            hx-post="{{ url_for('doc_layout.doc_load') }}"
                             hx-include="closest .layout"
                             hx-vals='{{ {
                                 "doc": doc,
@@ -26,7 +26,7 @@
                     <!-- Кнопка: перейти в raw -->
                     <button class="icon-button"
                             title="Показать исходный контент"
-                            hx-post="{{ url_for('doc_content.generate_content') }}"
+                            hx-post="{{ url_for('doc_layout.doc_load') }}"
                             hx-include="closest .layout"
                             hx-vals='{{ {
                                 "doc": doc,
@@ -42,8 +42,21 @@
         </div>
     {% endif %}
 
-    <div class="doc-block">
-        <!-- 📦 Контентный блок -->
-        {{ content|safe }}
+    <!-- 📦 Контентный блок -->
+    {% set delay = 200 if layout == 'show' else 0 %}
+    <div 
+         hx-post="{{ url_for('content_generate.content_generate') }}" 
+         hx-vals='{{ {
+         "content": content,
+         "content_type": content_type
+         } | tojson }}'
+         hx-trigger="load delay:{{ delay }}ms"  
+         hx-target="this" 
+         hx-swap="outerHTML">
+        <div class="loader delayed-loader">
+            <span class="doc-loader"></span>
+            Генерирую контент ...
+        </div>  
     </div>
+    
 </div>

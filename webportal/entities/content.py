@@ -12,6 +12,10 @@ class ContentType(Enum):
     RAW = "raw"
     PLANTUML = "plantuml"
 
+class ContentGenerationMode(Enum):
+    SERVER_SIDE = "server-side"
+    REMOTE_SERVER = "remote-server"
+
 class Content:
 
     __content = "No content"
@@ -34,7 +38,6 @@ class Content:
             ContentType.PLAINTEXT: self.__generate_plaintext,
             ContentType.RAW: self.__generate_raw,
             ContentType.PLANTUML: self.__generate_plantum
-
         }
 
         if not self.raw_content or not self.content_type:
@@ -55,28 +58,28 @@ class Content:
         import markdown as md
 
         return render_template (
-            'partials/markdown.html',
+            'content/markdown.html',
             content=md.markdown(self.raw_content, extensions=['fenced_code', 'tables']),
             **self.kwargs
         )
     
     def __generate_html(self):
         return render_template (
-            'partials/html.html',
+            'content/html.html',
             content=self.raw_content,
             **self.kwargs
         )
     
     def __generate_plaintext(self):
         return render_template (
-            'partials/plaintext.html',
+            'content/plaintext.html',
             content=self.raw_content,
             **self.kwargs
         )
     
     def __generate_raw(self):
         return render_template (
-            'partials/raw.html',
+            'content/raw.html',
             content=self.raw_content,
             **self.kwargs
         )
@@ -103,7 +106,7 @@ class Content:
              result = f"Ошибка генерации PlantUML:\n{error_msg}"
 
         return render_template(
-            'partials/plantuml.html',
+            'content/plantuml.html',
             content=result,
             **self.kwargs
         )

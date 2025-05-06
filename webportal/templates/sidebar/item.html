@@ -7,7 +7,7 @@
   <ul>
     {% for child_page in page.child %}
       {% set page = child_page %}
-      {% include 'sidebar_item.html' with context %}
+      {% include 'sidebar/item.html' with context %}
     {% endfor %}
   </ul>
   {% endif %}

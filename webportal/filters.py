@@ -3,26 +3,34 @@ import html
 
 from datetime import datetime, timezone
 from flask import Flask
+from email.utils import parsedate_to_datetime
 
 def register_filters(app: Flask):
+
 
     @app.template_filter('datetime')
     def format_datetime(value, format='%d.%m.%Y %H:%M:%S'):
         """
         Преобразует значение в красивую дату:
         - если это datetime — форматирует
-        - если это строка в ISO формате — конвертирует в datetime и форматирует
+        - если это строка в ISO или RFC 1123 — конвертирует и форматирует
         - иначе возвращает как есть
         """
         if isinstance(value, datetime):
             return value.strftime(format)
-        
+
         if isinstance(value, str):
             try:
+                # Пробуем ISO
                 dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
                 return dt.strftime(format)
             except ValueError:
-                return value
+                try:
+                    # Пробуем RFC 1123
+                    dt = parsedate_to_datetime(value)
+                    return dt.strftime(format)
+                except Exception:
+                    return value
 
         return value
 
