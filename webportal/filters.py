@@ -1,7 +1,8 @@
-# filters.py
+import humanize
+import html
+
 from datetime import datetime, timezone
 from flask import Flask
-import humanize
 
 def register_filters(app: Flask):
 
@@ -40,3 +41,11 @@ def register_filters(app: Flask):
             return humanize.naturaltime(now - value)
 
         return value
+    
+
+    @app.template_filter('escape_with_newlines')
+    def escape_with_newlines(value):
+        if not isinstance(value, str):
+            return value
+        escaped = html.escape(value)
+        return escaped.replace('\n', '<br>')

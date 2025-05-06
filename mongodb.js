@@ -192,4 +192,12 @@ db.pages.updateOne(
         updated: new Date(),
         updater: "Дима Гич"
       },
+      {
+        type: "plantuml",
+        content: "@startuml Bob -> Alice : hello @enduml",
+        author: "Иван Петров",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Федор Иванович"
+      },
   ]

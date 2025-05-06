@@ -1,12 +1,16 @@
-import markdown as md
+import os
+import subprocess
+
 from enum import Enum
 from flask import render_template
+from config import Config
 
 class ContentType(Enum):
     MARKDOWN = "markdown"
     PLAINTEXT = "plain-text"
     HTML = "html"
     RAW = "raw"
+    PLANTUML = "plantuml"
 
 class Content:
 
@@ -28,7 +32,9 @@ class Content:
             ContentType.MARKDOWN: self.__generate_markdown,
             ContentType.HTML: self.__generate_html,
             ContentType.PLAINTEXT: self.__generate_plaintext,
-            ContentType.RAW: self.__generate_raw
+            ContentType.RAW: self.__generate_raw,
+            ContentType.PLANTUML: self.__generate_plantum
+
         }
 
         if not self.raw_content or not self.content_type:
@@ -45,6 +51,9 @@ class Content:
             return ContentType.RAW
 
     def __generate_markdown(self):
+        
+        import markdown as md
+
         return render_template (
             'partials/markdown.html',
             content=md.markdown(self.raw_content, extensions=['fenced_code', 'tables']),
@@ -71,7 +80,31 @@ class Content:
             content=self.raw_content,
             **self.kwargs
         )
+    
+    def __generate_plantum(self):
+        jar_path = os.path.join(Config.BASE_DIR, "tools", Config.PLANTUML_JAR_FILE_NAME)
 
+        result = None
 
-        return f"<pre>{self.raw_content}</pre>"  # Примитивный рендер текста
+        try:
+            result = subprocess.run(
+                ["java", "-jar", jar_path, "-tsvg", "-pipe"],
+                input=self.raw_content.encode("utf-8"),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True
+            ).stdout.decode("utf-8")
+
+            if not result.strip():
+                result = "PlantUML-схема не сгенерирована. Проверьте исходный текст"
+
+        except subprocess.CalledProcessError as e:
+             error_msg = e.stderr.decode("utf-8") if e.stderr else str(e)
+             result = f"Ошибка генерации PlantUML:\n{error_msg}"
+
+        return render_template(
+            'partials/plantuml.html',
+            content=result,
+            **self.kwargs
+        )
         
