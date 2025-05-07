@@ -1,5 +1,5 @@
 ## 07.05.2025
-1. Подключена remote-side генерация draw.io (по другому не вышло)
+1. Подключена remote-server генерация draw.io (по другому не вышло)
 ![alt text](docs/img/image-9.png)
 *С включенным layout*
 ![alt text](docs/img/image-8.png)
