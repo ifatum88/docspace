@@ -1,0 +1,19 @@
+<div class="error-block">
+    <div class="error-header">
+      <span class="material-icons">error_outline</span>
+      <strong>{{ error_text }}</strong>
+      <span 
+        class="error-toggle accent-link"
+        data-toggle="collapse"
+        data-target="#error1"
+        data-text="Нажми для подробностей"
+        data-alt-text="Скрыть"
+      >
+        Нажми для подробностей
+      </span>
+    </div>
+  
+    <div class="error-details" id="error1">
+      {{ exeption }}
+    </div>
+  </div>

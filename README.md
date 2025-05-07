@@ -1,3 +1,13 @@
+## 07.05.2025
+1. Подключена remote-side генерация draw.io (по другому не вышло)
+![alt text](docs/img/image-9.png)
+*С включенным layout*
+![alt text](docs/img/image-8.png)
+2. Реализована core логика запросов контента с внешних серверов core.http.client
+3. Реализован функционал, чтобы ловить ошибки генерации и выводить их в красивом виде + давать сразу детализацию entities.content 
+![alt text](docs/img/image-10.png)
+![alt text](docs/img/image-11.png)
+
 ## 06.05.2025
 1. Подключена server-side генерация PlantUML
 ![alt text](docs/img/image-7.png)

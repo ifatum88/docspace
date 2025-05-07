@@ -200,4 +200,12 @@ db.pages.updateOne(
         updated: new Date(),
         updater: "Федор Иванович"
       },
+      {
+        type: "draw.io",
+        content: "rr",
+        author: "Серж Горелый",
+        created: new Date(),
+        updated: new Date(),
+        updater: "Федор Иванович"
+      },
   ]

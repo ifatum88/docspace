@@ -3,7 +3,12 @@ import subprocess
 
 from enum import Enum
 from flask import render_template
+from typing import Any
+from functools import wraps
+from requests import RequestException
+
 from config import Config
+from services import DrawIO 
 
 class ContentType(Enum):
     MARKDOWN = "markdown"
@@ -11,10 +16,22 @@ class ContentType(Enum):
     HTML = "html"
     RAW = "raw"
     PLANTUML = "plantuml"
+    DRAWIO = "draw.io"
 
 class ContentGenerationMode(Enum):
     SERVER_SIDE = "server-side"
     REMOTE_SERVER = "remote-server"
+
+def generate_fallback(content_type: ContentType, error_message: str = "Ошибка при генерации контента"):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            result = func(self, *args, **kwargs)
+            if isinstance(result, RequestException):
+                return self._content_error(f"[{content_type.value}] {error_message}", exeption=result)
+            return result
+        return wrapper
+    return decorator
 
 class Content:
 
@@ -29,7 +46,7 @@ class Content:
     @property
     def content(self):
         return self.generate() or self.__content
-
+    
     def generate(self):
 
         generators = {
@@ -37,13 +54,31 @@ class Content:
             ContentType.HTML: self.__generate_html,
             ContentType.PLAINTEXT: self.__generate_plaintext,
             ContentType.RAW: self.__generate_raw,
-            ContentType.PLANTUML: self.__generate_plantum
+            ContentType.PLANTUML: self.__generate_plantum,
+            ContentType.DRAWIO: self.__generate_drawio
         }
 
         if not self.raw_content or not self.content_type:
             return None
+        
+        content = generators.get(self.content_type)()
 
-        return generators.get(self.content_type)()
+        return content
+
+    def _content_error(self, error_text:str, exeption:RequestException):
+        return render_template(
+            'content/error.html',
+            error_text=error_text,
+            exeption=exeption,
+            **self.kwargs
+        )
+
+    def __content_success(self, content:Any, template:str):
+        return render_template(
+            template,
+            content=content,
+            **self.kwargs
+        )
 
     def __convert_to_contenttype(self, _type):
         if isinstance(_type, ContentType):
@@ -84,6 +119,7 @@ class Content:
             **self.kwargs
         )
     
+    @generate_fallback(ContentType.PLANTUML, error_message="Не смог сгенерировать схему")
     def __generate_plantum(self):
         jar_path = os.path.join(Config.BASE_DIR, "tools", Config.PLANTUML_JAR_FILE_NAME)
 
@@ -110,4 +146,15 @@ class Content:
             content=result,
             **self.kwargs
         )
+    
+    @generate_fallback(ContentType.DRAWIO, error_message="Не смог сгенерировать схему")
+    def __generate_drawio(self):
+        drawio_client = DrawIO()
+        content = drawio_client.render_png(self.raw_content)
+
+        if isinstance(content, RequestException):
+            return content
+
+        if content:
+            return self.__content_success(content, 'content/drawio.html')
         

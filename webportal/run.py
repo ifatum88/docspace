@@ -21,9 +21,10 @@ app.register_blueprint(routes.page.by_id_bp) # Загрузка страницы
 app.register_blueprint(routes.doc.doc_layout_bp) # Загрузка layout документов
 app.register_blueprint(routes.content.content_generate_bp) # Генерация контента документа
 
-# FEATURE: Сделать красивы темплейт для вывода ошибок на страницы
-# FEATURE: Добавть необязательные name в коллекцию doc
-# FEATURE: Подключить draw.io
+# Потестить как можно получать картинки бОльшего разрешения от draw.io и еще как работает вывод в html (вроде так можно)
+
+# FEATURE: Добавить необязательные name в коллекцию doc
+# FEATURE: Сделать виджет, чтобы можно было зумить / скролить большие картинки
 # FEATURE: Подключить DBML
 # FEATURE: Подключить OpenAPI
 # FEATURE: Сделать чтобы сворачивались разворачивались меню айтемы (стрелочка была на тех, где есть дочки и точки там, где нет). Поведение - развопачиваем все древо до текущей страницы и дочерные страницы N-1 к текущей странице
@@ -32,7 +33,8 @@ app.register_blueprint(routes.content.content_generate_bp) # Генерация 
 
 # DESIGN REF - https://cruip.com/demos/docs/?ref=builtatlightspeed
 # BOOTSTRAP DevDoc - https://demo.htmlcodex.com/2011/bootstrap-documentation-template/
-# 
+
+# Сделать сборку для запуска в Docker
 
 print (app.url_map)
 

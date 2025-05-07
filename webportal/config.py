@@ -5,6 +5,8 @@ class Config:
     BASE_DIR = "/Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/webportal"
     LOG_DIR = "logs"
     
+    REQUESTS_TIMEOUT = 10
+
     MONGO_URL = "mongodb://localhost:27017"
     MONGO_DATABASE_NAME = "docspace"
 
@@ -14,3 +16,6 @@ class Config:
     PLANTUML_MODE = "server-side" #server-side or remote-server
     PLANTUML_URL = None
     PLANTUML_JAR_FILE_NAME = "plantuml-mit-1.2025.2.jar"
+
+    DRAWIO_MODE = "remote-server"
+    DRAWIO_URL = "http://localhost:8000/"
