@@ -1,24 +1,22 @@
 import base64
 
-from core.http import HTTPClient
-from config import Config
 from requests import RequestException
 
 from enum import Enum
 from requests import Response
 from typing import Union
-
+from flask import current_app
+from core.http import HTTPClient
 
 class DrawioOutputFormats(Enum):
     PNG = "png"
     PDF = "pdf"
     HTML = "html"
 
-
 class DrawIO:
     
     def __init__(self):
-        self.url = Config.DRAWIO_URL
+        self.url = current_app.config.extention.drawio['url']
         self.http_client = HTTPClient(self.url)
 
     def __remote_request(self, content: str, format: DrawioOutputFormats) -> Union[Response, RequestException]:

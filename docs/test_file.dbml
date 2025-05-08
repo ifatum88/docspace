@@ -1,0 +1,112 @@
+
+Table game {
+    id int [pk, increment]
+    code int [increment, not null]
+    name jsonb [not null, di]
+    rounds_qty int [not null]
+    status game_status [default: "new"]
+    is_template bool [default: False]
+    created_at datetime [default: "now()"]
+    round_budget decimal [not null, default: 0]
+    round_stocks_costs decimal [not null, default: 0]
+}
+Table game_round {
+    id int [pk, increment]
+    game_id int [ref: > game.id, not null]
+    number int [not null, default: 0]
+    status game_status [default: "new"]
+    created_at datetime [default: "now()"]
+}
+Table game_participant {
+    id int [pk, increment]
+    game_id int [ref: > game.id, not null]
+    name varchar [not null]
+    created_at datetime [default: "now()"]
+}
+Table game_round_participiant {
+    id int [pk, increment]
+    game_round_id int [ref: > game_round.id, not null]
+    game_participant_id int [ref: > game_participant.id, not  null]
+    is_done bool [default: False]
+    created_at datetime [default: "now()"]
+}
+Table product {
+    id int [pk, increment]
+    game_round_participiant_id int [ref: > game_round_participiant.id, not null]
+    type_id int [ref: > product_type.id]
+    code varchar [not null]
+    sales_price decimal [not null]
+    purchase_price decimal [not null]
+    sold_qty decimal [not null]
+    stocks_start decimal [not null]
+    stocks_end decimal [not null]
+    max_discount decimal [not null]
+    sales_comission decimal [not null]
+    promo decimal [not null]
+    advertisement decimal [not null]
+    created_at datetime [default: "now()"]
+}
+Table product_type {
+    id int [pk, increment]
+    code varchar [not null]
+    name varchar [not null]
+    created_at datetime [default: "now()"]
+    max_price decimal [not null] 
+    min_price decimal [not null]
+}
+Table product_region_qty {
+    id int [pk, increment]
+    product_id int [ref: > product.id, not null]
+    region_id int [ref: > region.id]
+    qty int
+}
+Table region {
+    id int [pk, increment]
+    name varchar [uniqie, not null]
+}
+Table employee {
+    id int [pk, increment]
+    game_id int [ref: > game.id, not null]
+    name varchar [not null]
+    round_salary_costs decimal [not null] 
+    round_hiring_costs decimal [not null] 
+    round_severance_costs decimal [not null] 
+    round_learning_costs decimal [not null] 
+}
+Table game_round_participiant_employee {
+    id int [pk, increment]
+    game_round_participiant int [ref: > game_round_participiant.id, not null]
+    employee_id int [ref: > employee.id, not null]
+    need_learn int [not null, default: 0]
+    was_learned int [not null, default: 0]
+    total int [not null, default: 0]
+}
+Table game_round_participiant_employee_qty {
+    id int [pk, increment]
+    game_round_participiant_employee_id int [ref: > game_round_participiant_employee.id, not null]
+    region_id int [ref: > region.id]
+    qty int [not null, default: 0]
+}
+Table game_round_participiant_cots {
+    id int [pk, increment]
+    game_round_participiant_id int [ref: > game_round_participiant.id, not null]
+    pr_and_gr decimal [not null, default: 0]
+    development decimal [not null, default: 0]
+}
+Table game_round_participiant_report {
+    id int [pk, increment]
+    report_type_id int [ref: > report_type.id]
+    game_round_participiant_id int [ref: > game_round_participiant.id, not null]
+    is_order bool [not null, defalut: False]
+}
+Table report_type {
+    id int [pk, increment]
+    name varchar [not null]
+    price decimal [not null]
+}
+Enum game_status {
+    new
+    started
+    ended
+    closed
+}

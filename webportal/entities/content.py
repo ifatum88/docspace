@@ -2,12 +2,11 @@ import os
 import subprocess
 
 from enum import Enum
-from flask import render_template
+from flask import render_template, current_app
 from typing import Any
 from functools import wraps
 from requests import RequestException
 
-from config import Config
 from services import DrawIO 
 
 class ContentType(Enum):
@@ -121,7 +120,7 @@ class Content:
     
     @generate_fallback(ContentType.PLANTUML, error_message="Не смог сгенерировать схему")
     def __generate_plantum(self):
-        jar_path = os.path.join(Config.BASE_DIR, "tools", Config.PLANTUML_JAR_FILE_NAME)
+        jar_path = os.path.join(current_app.config.extention.app['base_dir'], "tools", current_app.config.extention.plantuml['jar_file'])
 
         result = None
 

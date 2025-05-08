@@ -30,9 +30,23 @@ python3 -m venv /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-proj
 source /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs/bin/activate
 python3 -m pip install yarl
 
+python3 -m venv /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs
+source /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs/bin/activate
+python3 -m pip install pipreqs
+
+python3 -m venv /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs
+source /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs/bin/activate
+python3 -m pip install gunicorn
+
+python3 -m venv /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs
+source /Users/dgich/Yandex.Disk.localized/Проекты/corp-docs-project/.venv-corp-docs/bin/activate
+python3 -m pip install pyyaml
+
 INSTALL PlantUML (server-side)
 
 INSTALL DRAW.IO (remote-server)
 brew install --cask docker <--- Ставим Докер (если нет)
 docker pull jgraph/export-server <--- Внутри DockerShell. Качаем докер образ для сервера, который умеет экпортить картинки
+
+INSTALL DBML ()
 

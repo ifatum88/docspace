@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template
-# from entities import Content
 
 import json
 

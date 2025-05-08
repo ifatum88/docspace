@@ -3,9 +3,8 @@ import os
 
 from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
-from config import Config
 
-def get_logger(name: str = Config.APP_NAME, log_dir: str = Config.LOG_DIR, level: int = logging.INFO) -> logging.Logger:
+def get_logger(name:str, log_dir:str, level: int = logging.INFO) -> logging.Logger:
     """
     Возвращает настроенный логгер с ежедневной ротацией файлов с именем в формате YYYY-MM-DD.log
     """
@@ -15,12 +14,11 @@ def get_logger(name: str = Config.APP_NAME, log_dir: str = Config.LOG_DIR, level
         logger.setLevel(level)
 
         # Построим абсолютный путь к папке логов
-        log_folder_path = os.path.join(Config.BASE_DIR, log_dir)
-        os.makedirs(log_folder_path, exist_ok=True)
+        os.makedirs(log_dir, exist_ok=True)
 
         # Формируем имя файла по дате
         date_str = datetime.now().strftime("%Y-%m-%d")
-        log_path = os.path.join(log_folder_path, f"{date_str}.log")
+        log_path = os.path.join(log_dir, f"{date_str}.log")
 
         # Создаем обработчик с ротацией по времени
         handler = TimedRotatingFileHandler(

@@ -1,0 +1,17 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: mongo
+    ports:
+      - "27020:27017"
+    volumes:
+      - ./mongo:/data/db
+
+  drawio-export:
+    image: jgraph/export-server
+    container_name: drawio-export
+    ports:
+      - "8000:8000"
+
+volumes:
+  mongo-data:

@@ -2,19 +2,21 @@ from pymongo.database import Database
 from pymongo.cursor import Cursor
 
 from bson import ObjectId
+from globals import Globals
 
 from .Const import BSON_TO_JSON_TYPE, JSON_VALIDATION_RULES
 from .Fields import ModelFieldTypes, ModelField, ModelFieldSources
 from .Transformer import ModelFieldValueTransformer
 from .QuerySet import QuerySet
-from core.utils import get_logger
+
 
 class ModelFabric(type):
     def __new__(cls, name, bases, dct):
         new_cls = super().__new__(cls, name, bases, dct)
+        new_globals = Globals()
 
         if not hasattr(new_cls, '_logger'):
-            new_cls._logger = get_logger(name=f"{new_cls.__module__}.{name}")
+            new_cls._logger = new_globals.logger
         
         return new_cls
     

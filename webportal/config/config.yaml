@@ -1,0 +1,29 @@
+app:
+  version: "0.2.0"
+  name: "DocSpace"
+  base_dir: "."
+  templates_folder: "templates"
+  static_folder: "static"
+
+logs:
+  dir: "logs"
+
+mongo:
+  url: "mongodb://localhost:27020"
+  database: "docspace"
+
+flask:
+  debug: False
+  use_reloader: False
+  threaded: True
+
+http:
+  timeout: 10
+
+plantuml:
+  islocal: True
+  url: None
+  jar_file: "plantuml-mit-1.2025.2.jar"
+
+drawio:
+  url: "http://localhost:8000/"

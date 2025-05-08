@@ -4,14 +4,11 @@ from flask import current_app
 from yarl import URL
 from functools import wraps
 
-from config import Config
-
-
 class HTTPClient:
 
-    def __init__(self, url:str, timeout:int = Config.REQUESTS_TIMEOUT):
+    def __init__(self, url:str, timeout:int = None):
         self.url = URL(url)
-        self.timeout = timeout
+        self.timeout = timeout or current_app.config.extention.http['timeout']
         self.logger = current_app.logger
 
     @staticmethod
@@ -50,7 +47,7 @@ class HTTPClient:
         url = str(self.url / endpoint.lstrip("/"))
         return get(url, **kwargs)
     
-    @_safe_request("get")
+    @_safe_request("post")
     def post(self, endpoint: str, **kwargs) -> Response:
         url = str(self.url / endpoint.lstrip("/"))
         return post(url, **kwargs)

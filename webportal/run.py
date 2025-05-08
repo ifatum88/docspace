@@ -21,12 +21,16 @@ app.register_blueprint(routes.page.by_id_bp) # Загрузка страницы
 app.register_blueprint(routes.doc.doc_layout_bp) # Загрузка layout документов
 app.register_blueprint(routes.content.content_generate_bp) # Генерация контента документа
 
-# Потестить как можно получать картинки бОльшего разрешения от draw.io и еще как работает вывод в html (вроде так можно)
 
-# FEATURE: Добавить необязательные name в коллекцию doc
-# FEATURE: Сделать виджет, чтобы можно было зумить / скролить большие картинки
 # FEATURE: Подключить DBML
 # FEATURE: Подключить OpenAPI
+# FEATURE: Подключить PlantUML remote-server
+
+# Потестить как можно получать картинки бОльшего разрешения от draw.io и еще как работает вывод в html (вроде так можно)
+# Переделать работу с конфигом, надо к нему доступ получать через current_app, а не импортировать напрямую
+# FEATURE: Добавить необязательные name в коллекцию doc
+# FEATURE: Сделать виджет, чтобы можно было зумить / скролить большие картинки
+
 # FEATURE: Сделать чтобы сворачивались разворачивались меню айтемы (стрелочка была на тех, где есть дочки и точки там, где нет). Поведение - развопачиваем все древо до текущей страницы и дочерные страницы N-1 к текущей странице
 
 # FEATURE: ON THIS PAGE - передвижение по якорям h1 по станице
@@ -34,16 +38,12 @@ app.register_blueprint(routes.content.content_generate_bp) # Генерация 
 # DESIGN REF - https://cruip.com/demos/docs/?ref=builtatlightspeed
 # BOOTSTRAP DevDoc - https://demo.htmlcodex.com/2011/bootstrap-documentation-template/
 
-# Сделать сборку для запуска в Docker
+# Сделать   для запуска в Docker
 
 print (app.url_map)
 
 # RUN
 if __name__ == '__main__':
-  app.run(debug=True, use_reloader=False, threaded=True)
-
-
-  # code - e86f
-  # generate - e069
-  # info - e88e
-  # close - e5cd
+  app.run(debug=app.config.extention.flask['debug'], 
+          use_reloader=app.config.extention.flask['use_reloader'], 
+          threaded=app.config.extention.flask['threaded'])
